@@ -31,16 +31,16 @@ module Forcifier
 		# * *Raises* :
 		#   - ++ ->
 		#
-		def self.enforce_json(json)
+		def self.enforce_json(json, prefix='')
 			ary = []
 			if json.is_a?(Array)
 				json.each do |record|
-					ary << record.enforce_keys!
+					ary << record.enforce_keys!(prefix)
 				end
 				ary
 			elsif json.is_a?(Hash)
-				json.enforce_keys!
+				json.enforce_keys!(prefix)
 			end
-		end		
+		end
 	end
 end

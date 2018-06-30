@@ -1,6 +1,9 @@
 class Array
-  def enforce(std_fields)
-    self.collect { |x| std_fields.include?(x) ? x : "#{x}__c" }
+
+  STANDARD_FIELDS = %w(id isdeleted name createddate createdbyid lastmodifieddate lastmodifiedbyid systemmodstamp lastactivitydate currencyisocode)
+
+  def enforce(prefix)
+    self.collect { |x| STANDARD_FIELDS.include?(x.downcase) ? x : "#{prefix}#{x}__c" }
   end
 
   def deforce

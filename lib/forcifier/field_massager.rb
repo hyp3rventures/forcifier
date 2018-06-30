@@ -1,7 +1,5 @@
 module Forcifier
 
-	STANDARD_FIELDS = %w(id isdeleted name createddate createdbyid lastmodifieddate lastmodifiedbyid systemmodstamp lastactivitydate currencyisocode)
-
 	class FieldMassager
 
 		#
@@ -13,8 +11,8 @@ module Forcifier
 		# * *Raises* :
 		#   - ++ ->
 		#
-		def self.enforce_fields(fields)
-			fields.downcase.split(',').enforce(STANDARD_FIELDS).join(',')
+		def self.enforce_fields(fields, prefix='')
+			fields.split(',').enforce(prefix).join(',')
 		end
 
 		#
@@ -27,7 +25,7 @@ module Forcifier
 		#   - ++ ->
 		#
 		def self.deforce_fields(fields)
-			fields.downcase.split(',').deforce.join(',')
+			fields.split(',').deforce.join(',')
 		end
 
 	end
