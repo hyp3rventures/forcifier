@@ -1,6 +1,6 @@
 class Hash
-
-	STANDARD_FIELDS = %w(id isdeleted name createddate createdbyid lastmodifieddate lastmodifiedbyid systemmodstamp lastactivitydate)
+  STANDARD_OBJECTS = %w(contact organization opportunity case)
+	STANDARD_FIELDS = %w(id isdeleted name createddate createdbyid lastmodifieddate lastmodifiedbyid systemmodstamp lastactivitydate contact)
 
   def deforce_keys!
     keys.each do |key|
@@ -16,7 +16,7 @@ class Hash
 
   def enforce_keys!(prefix)
     keys.each do |key|
-      new_key = (if !STANDARD_FIELDS.include?key.downcase then prefix + key + '__c' end) || key
+      new_key = (if !(STANDARD_OBJECTS + STANDARD_FIELDS).include?key.downcase then prefix + key + '__c' end) || key
       self[new_key] = delete(key)
       if self[new_key].is_a?(Hash) then self[new_key].enforce_keys!(prefix) end
       if self[new_key].is_a?(Array)
